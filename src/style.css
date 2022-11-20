@@ -1,0 +1,75 @@
+img {
+  opacity: 0.5;
+}
+
+p {
+  margin-bottom: 0px;
+}
+
+h2 {
+  font-size: calc(2.3rem + 0.3vw);
+}
+
+.app-box {
+  text-align: left;
+  margin: 0 auto;
+  max-width: 500px;
+  border: 1px solid gray;
+  padding: 25px;
+  color: rgba(68, 69, 69, 0.9);
+  display: flexbox;
+  font-family: "Jost", sans-serif;
+  margin-bottom: 20px;
+}
+
+.next-day-card {
+  padding: 5px;
+}
+
+.high {
+  text-align: right;
+}
+
+.smaller {
+  font-size: 10px;
+}
+
+.weather-icon {
+  max-width: 8vh;
+}
+
+.card {
+  padding: 8px;
+  border: 2px solid rgba(68, 69, 69, 0.8) !important;
+  box-shadow: 1px 1px;
+}
+
+#city-search-bar {
+  border-radius: 15px;
+  border: solid 1px gray;
+  padding: 6px;
+  max-width: 30vh;
+  margin-right: 40px;
+}
+
+#city-search-submit-btn,
+#sync-location-btn {
+  border-radius: 10px;
+  border: solid 1px gray;
+  font-size: small;
+  padding: 5px;
+  margin: 1.5px;
+}
+input:focus {
+  outline: none !important;
+  border-color: #719ece;
+  box-shadow: 0 0 3px rgba(68, 69, 69, 0.9);
+}
+
+#city-search-submit-btn:hover {
+  background-color: rgba(68, 69, 69, 0.9);
+  color: white;
+}
+input:focus::placeholder {
+  color: transparent;
+}
