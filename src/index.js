@@ -2,24 +2,24 @@
 let now = new Date();
 //TURN DAY AND MONTH ARRAY NUMBERS INTO COMMON NAMES
 function formatDate() {
-  let days = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
+  let days = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
   let currentDay = days[now.getDay()];
   let months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "April",
-    "May",
-    "June",
-    "July",
-    "Aug",
-    "Sept",
-    "Oct",
-    "Nov",
-    "Dec",
+    "jan",
+    "feb",
+    "mar",
+    "apr",
+    "may",
+    "june",
+    "july",
+    "aug",
+    "sep",
+    "oct",
+    "nov",
+    "dec",
   ];
   let currentMonth = months[now.getMonth()];
-  let formattedDate = `${currentDay} ${currentMonth} ${now.getDate()}, ${now.getFullYear()}`;
+  let formattedDate = `${currentDay} ${currentMonth} ${now.getDate()}`;
   return formattedDate;
 }
 //ADD ZERO IF MINUTES LESS THAN 10
@@ -78,7 +78,7 @@ function displayCurrentWeather(
   currentDescription
 ) {
   if (currentTemp) {
-    currentTempToReplace.innerHTML = `${currentTemp}°F`;
+    currentTempToReplace.innerHTML = `${currentTemp}°<sup class="smaller">F</sup>`;
     currentHumidityToReplace.innerHTML = `${currentHumidity}% humidity`;
     currentDescriptionToReplace.innerHTML = `${currentDescription}`;
   } else {

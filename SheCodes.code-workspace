@@ -1,0 +1,61 @@
+{
+  "folders": [
+	{
+		"name": "SheCodes",
+		"path": "."
+	},
+	{
+		"name": "Week1basic",
+		"path": "../../SheCodes/Week1basic"
+	},
+	{
+		"name": "Week1Plus",
+		"path": "../../SheCodes/Week1Plus"
+	},
+	{
+		"name": "Week2basic",
+		"path": "../../SheCodes/Week2basic"
+	},
+	{
+		"name": "Week2Plus",
+		"path": "../../SheCodes/Week2Plus"
+	},
+	{
+		"name": "week2plus-hw",
+		"path": "../../SheCodes/Week2Plus/week2plus-hw"
+	},
+	{
+		"name": "src",
+		"path": "../../SheCodes/Week2Plus/week2plus-hw/src"
+	},
+	{
+		"name": "Week3basic",
+		"path": "../../SheCodes/Week3basic"
+	},
+	{
+		"name": "Week3Plus",
+		"path": "../../SheCodes/Week3Plus"
+	},
+	{
+		"name": "week4Plus",
+		"path": "../../SheCodes/week4Plus"
+	},
+	{
+		"name": "week4Plus-hw",
+		"path": "../../SheCodes/week4Plus/week4Plus-hw"
+	},
+	{
+		"name": "src",
+		"path": "../../SheCodes/week4Plus/week4Plus-hw/src"
+	},
+	{
+		"name": "media",
+		"path": "../../SheCodes/week4Plus/week4Plus-hw/src/media"
+	},
+	{
+		"name": "Week5Plus",
+		"path": "../../SheCodes/Week5Plus"
+	}
+],
+  "settings": {}
+}
