@@ -50,6 +50,7 @@ let currentDescriptionToReplace = document.querySelector(
   "#current-description"
 );
 let currentIconToReplace = document.querySelector("#icon-div");
+let currentWindSpeedToReplace = document.querySelector("#current-wind-speed");
 
 //RETRIEVE LOCATION, SET COORDS, CALL WEATHER API WITH COORDS
 function retrieveLocationAndCallApi() {
@@ -82,11 +83,13 @@ function getWeather(response) {
     let currentCity = response.data.name;
     let currentHumidity = response.data.main.humidity;
     let currentDescription = response.data.weather[0].description;
+    let currentWindSpeed = response.data.wind.speed;
     const currentIcon = response.data.weather[0].icon;
     displayCurrentWeather(
       currentTemp,
       currentHumidity,
       currentDescription,
+      currentWindSpeed,
       currentIcon
     );
     displayCurrentCity(currentCity);
@@ -99,6 +102,7 @@ function displayCurrentWeather(
   currentTemp,
   currentHumidity,
   currentDescription,
+  currentWindSpeed,
   currentIcon
 ) {
   console.log(currentIcon);
@@ -106,6 +110,7 @@ function displayCurrentWeather(
     currentTempToReplace.innerHTML = `${currentTemp}°<sup class="smaller">F</sup>`;
     currentHumidityToReplace.innerHTML = `${currentHumidity}% humidity`;
     currentDescriptionToReplace.innerHTML = `${currentDescription}`;
+    currentWindSpeedToReplace.innerHTML = `wind ${currentWindSpeed} mph`;
     currentIconToReplace.innerHTML = `<img src=https://openweathermap.org/img/wn/${currentIcon}@2x.png>`;
     // `<img src="src/icons/${currentIcon}.png">;
   } else {

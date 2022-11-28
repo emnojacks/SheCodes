@@ -67,10 +67,11 @@ h1 {
   font-size: small;
   padding: 5px;
   margin: 1.5px;
+  background-color: #ffffff;
 }
 input:focus {
   outline: none !important;
-  box-shadow: 2px 2px rgba(68, 69, 69, 0.9);
+  box-shadow: 2px 2px #f3dfa2;
 }
 
 #city-search-submit-btn:hover,
