@@ -36,6 +36,7 @@ todaysDate.innerHTML =
 let citySearchBar = document.querySelector("#city-search-bar");
 let cityHeader = document.querySelector("#city-header");
 let citySearchSubmitBtn = document.querySelector("#city-search-submit-btn");
+let switchMetricBtn = document.querySelector("#switch-metric-btn");
 citySearchSubmitBtn.addEventListener("click", changeCityToSearchedCity);
 let apiKey = "71af9c2805889d9aa3f3ac839c94ca11";
 let units = "imperial";
