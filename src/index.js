@@ -30,7 +30,7 @@ if (minutes < 10) {
 //DISPLAY CURRENT DATE
 let todaysDate = document.querySelector("#todays-date");
 todaysDate.innerHTML =
-  formatDate(new Date()) + " <br/> " + now.getHours() + ":" + minutes;
+  formatDate(new Date()) + " " + now.getHours() + ":" + minutes;
 
 //DECLARE VARIABLE NAMES TO DOM ELEMENTS & API PARAMS
 let citySearchBar = document.querySelector("#city-search-bar");
@@ -41,12 +41,15 @@ let apiKey = "71af9c2805889d9aa3f3ac839c94ca11";
 let units = "imperial";
 let lat;
 let lon;
+
+//USING FREE OPEN WEATHER API FOR CURRENT WEATHER
 let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${units}`;
 let currentTempToReplace = document.querySelector("#current-temp");
 let currentHumidityToReplace = document.querySelector("#current-humidity");
 let currentDescriptionToReplace = document.querySelector(
   "#current-description"
 );
+let currentIconToReplace = document.querySelector("#icon-div");
 
 //RETRIEVE LOCATION, SET COORDS, CALL WEATHER API WITH COORDS
 function retrieveLocationAndCallApi() {
@@ -71,21 +74,6 @@ function displayCurrentCity(currentCity) {
   }
 }
 
-//DISPLAY TODAY'S WEATHER FOR GEOLOCATED LOCATION
-function displayCurrentWeather(
-  currentTemp,
-  currentHumidity,
-  currentDescription
-) {
-  if (currentTemp) {
-    currentTempToReplace.innerHTML = `${currentTemp}°<sup class="smaller">F</sup>`;
-    currentHumidityToReplace.innerHTML = `${currentHumidity}% humidity`;
-    currentDescriptionToReplace.innerHTML = `${currentDescription}`;
-  } else {
-    console.log("missing data");
-  }
-}
-
 //GET WEATHER VARS FROM RESPONSE DATA & CALL DISPLAY FUNCS
 function getWeather(response) {
   if (response) {
@@ -94,10 +82,34 @@ function getWeather(response) {
     let currentCity = response.data.name;
     let currentHumidity = response.data.main.humidity;
     let currentDescription = response.data.weather[0].description;
-    displayCurrentWeather(currentTemp, currentHumidity, currentDescription);
+    const currentIcon = response.data.weather[0].icon;
+    displayCurrentWeather(
+      currentTemp,
+      currentHumidity,
+      currentDescription,
+      currentIcon
+    );
     displayCurrentCity(currentCity);
   } else {
     alert("Something went wrong, sorry.");
+  }
+}
+//DISPLAY TODAY'S WEATHER FOR GEOLOCATED LOCATION
+function displayCurrentWeather(
+  currentTemp,
+  currentHumidity,
+  currentDescription,
+  currentIcon
+) {
+  console.log(currentIcon);
+  if (currentTemp) {
+    currentTempToReplace.innerHTML = `${currentTemp}°<sup class="smaller">F</sup>`;
+    currentHumidityToReplace.innerHTML = `${currentHumidity}% humidity`;
+    currentDescriptionToReplace.innerHTML = `${currentDescription}`;
+    currentIconToReplace.innerHTML = `<img src=https://openweathermap.org/img/wn/${currentIcon}@2x.png>`;
+    // `<img src="src/icons/${currentIcon}.png">;
+  } else {
+    console.log("missing data");
   }
 }
 //FUNCTIONS BASED ON SEARCHED CITY

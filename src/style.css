@@ -17,7 +17,8 @@ h1 {
   border: 1px solid gray;
   border-radius: 10px;
   padding: 25px;
-  color: rgba(68, 69, 69, 0.9);
+  background-color: #83cbd0;
+  color: rgb(68, 69, 69);
   display: flexbox;
   font-family: "Jost", sans-serif;
   margin-bottom: 20px;
@@ -35,14 +36,15 @@ h1 {
   font-size: 12px;
 }
 
-.weather-icon {
-  max-width: 8vh;
+.icon-div {
+  max-width: 9vh;
 }
 
 .card {
   padding: 8px;
-  border: 2px solid rgba(68, 69, 69, 0.8) !important;
-  box-shadow: 1px 1px;
+  border: 1px solid rgba(68, 69, 69, 0.8) !important;
+  margin: 1px;
+  border-radius: 10px;
 }
 .search-div {
   text-align: right;
@@ -71,9 +73,10 @@ input:focus {
   box-shadow: 2px 2px rgba(68, 69, 69, 0.9);
 }
 
-#city-search-submit-btn:hover {
-  background-color: rgba(68, 69, 69, 0.9);
-  color: white;
+#city-search-submit-btn:hover,
+#sync-location-btn:hover {
+  background-color: #f3dfa2;
+  color: rgb(68, 69, 69);
 }
 input:focus::placeholder {
   color: transparent;
