@@ -36,14 +36,27 @@ todaysDate.innerHTML =
 let citySearchBar = document.querySelector("#city-search-bar");
 let cityHeader = document.querySelector("#city-header");
 let citySearchSubmitBtn = document.querySelector("#city-search-submit-btn");
-let switchMetricBtn = document.querySelector("#switch-metric-btn");
+let switchMetricToggle = document.querySelector("#switch-metric-toggle");
+switchMetricToggle.addEventListener("change", toggleMetric);
 citySearchSubmitBtn.addEventListener("click", changeCityToSearchedCity);
 let apiKey = "71af9c2805889d9aa3f3ac839c94ca11";
-let units = "imperial";
+let units;
 let lat;
 let lon;
 
+//Toggle metric
+function toggleMetric() {
+  if (switchMetricToggle.value === "checked") {
+    units = "imperial";
+    console.log("changed to imperial");
+  } else {
+    units = "metric";
+    console.log("changed to metric");
+  }
+}
+
 //USING FREE OPEN WEATHER API FOR CURRENT WEATHER
+toggleMetric();
 let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${units}`;
 let currentTempToReplace = document.querySelector("#current-temp");
 let currentHumidityToReplace = document.querySelector("#current-humidity");
