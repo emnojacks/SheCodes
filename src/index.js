@@ -61,9 +61,9 @@ function toggleMetric(response) {
     convertToCelsius();
     return units;
   } else {
-    //cahnge from C to F
-    switchMetricToggle.value = "metric";
+    //change from C to F
     units = "imperial";
+    switchMetricToggle.value = "imperial";
     displayUnits = "F";
     windspeedUnits = "mph";
     console.log("changed to imperial");
