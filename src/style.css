@@ -120,7 +120,7 @@ border-radius: 30px;
 
 .slider:before {
   position: absolute;
-  content: "°F";
+  content: "°C";
   height: 23px;
   width: 23px;
   left: 4px;
@@ -138,7 +138,7 @@ input:checked + .slider:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
-  content: "°C";
+  content: "°F";
 }
 
 /* Rounded sliders */

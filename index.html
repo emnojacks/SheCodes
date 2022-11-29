@@ -28,15 +28,20 @@
           
           </div> 
           <div class="col-6 search-div">
+
+<!-- city search bar -->
             <input type="text" placeholder="change city" id="city-search-bar"/>
             <br/>
-            <input type="submit" id="city-search-submit-btn" value="search"> 
-            <input type="submit" id="sync-location-btn" value="sync city"> 
-<!-- Rounded switch -->
-<label class="switch">
-  <input type="checkbox" id="switch-metric-toggle">
-  <!-- <span class="slider round"></span> -->
+<!-- switch metric tgl -->
+<label class="switch" for="switch-metric-toggle">
+  <input type="checkbox" id="switch-metric-toggle"  name="switch-metric-toggle" value="farenheit" checked>
+  <span class="slider round"></span> 
 </label>
+<!-- city search btn -->
+            <input type="submit" id="city-search-submit-btn" value="search"> 
+<!-- sync location -->
+            <input type="submit" id="sync-location-btn" value="sync city"> 
+
 
 <br>
           </div>
@@ -45,8 +50,8 @@
 <div id = "icon-div">
   <img src="src/icons/04n.png" alt="weather-icon"/>
 </div>
-      
-          <h2 id="current-temp">43°<sup class=smaller>F | C </sup></h2>
+<!-- DUMMY DATA TO PREVENT EMPTY OBJECTS -->
+          <h2 id="current-temp">43°<sup class="smaller">F</sup></h2>
           <h4 id="current-description">raining</h4>
           <h4 id="current-humidity">10% humidity</h4>
 <h4 id="current-wind-speed">wind 10 mph</h4>

@@ -40,23 +40,40 @@ let switchMetricToggle = document.querySelector("#switch-metric-toggle");
 switchMetricToggle.addEventListener("change", toggleMetric);
 citySearchSubmitBtn.addEventListener("click", changeCityToSearchedCity);
 let apiKey = "71af9c2805889d9aa3f3ac839c94ca11";
-let units;
+let units = "imperial";
 let lat;
 let lon;
+let displayUnits = "F";
+let windspeedUnits = "mph";
 
 //Toggle metric
 function toggleMetric() {
-  if (switchMetricToggle.value === "checked") {
-    units = "imperial";
-    console.log("changed to imperial");
-  } else {
+  if (switchMetricToggle.value === "farenheit") {
     units = "metric";
+    displayUnits = "C";
+    windspeedUnits = "mps";
+    switchMetricToggle.value = "celsius";
     console.log("changed to metric");
+    console.log(units, switchMetricToggle.value);
+    convertCurrentUnits();
+    return units;
+  } else {
+    switchMetricToggle.value = "farenheit";
+    units = "imperial";
+    displayUnits = "F";
+    windspeedUnits = "mph";
+    console.log("changed to imperial");
+    console.log(units, switchMetricToggle.value);
+    convertCurrentUnits();
+    return units;
   }
 }
 
+function convertUnits() {
+  console.log(currentTempToReplace);
+}
+
 //USING FREE OPEN WEATHER API FOR CURRENT WEATHER
-toggleMetric();
 let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${units}`;
 let currentTempToReplace = document.querySelector("#current-temp");
 let currentHumidityToReplace = document.querySelector("#current-humidity");
@@ -99,6 +116,7 @@ function getWeather(response) {
     let currentDescription = response.data.weather[0].description;
     let currentWindSpeed = response.data.wind.speed;
     const currentIcon = response.data.weather[0].icon;
+    cityHeader.innerHTML = currentCity;
     displayCurrentWeather(
       currentTemp,
       currentHumidity,
@@ -121,11 +139,12 @@ function displayCurrentWeather(
 ) {
   console.log(currentIcon);
   if (currentTemp) {
-    currentTempToReplace.innerHTML = `${currentTemp}°<sup class="smaller">F</sup>`;
+    currentTempToReplace.innerHTML = `${currentTemp}°<sup class="smaller">${displayUnits}</sup>`;
     currentHumidityToReplace.innerHTML = `${currentHumidity}% humidity`;
     currentDescriptionToReplace.innerHTML = `${currentDescription}`;
     currentWindSpeedToReplace.innerHTML = `wind ${currentWindSpeed} mph`;
     currentIconToReplace.innerHTML = `<img src=https://openweathermap.org/img/wn/${currentIcon}@2x.png>`;
+    //if you want to store icons on your computer use method below//
     // `<img src="src/icons/${currentIcon}.png">;
   } else {
     console.log("missing data");
@@ -135,15 +154,21 @@ function displayCurrentWeather(
 //CHANGE CITY HEADER TO SEARCHED CITY INSTEAD OF GEOLOCATED ONE
 function changeCityToSearchedCity() {
   let currentCity = citySearchBar.value;
-  cityHeader.innerHTML = currentCity;
   let syncLocationBtn = document.querySelector("#sync-location-btn");
   syncLocationBtn.addEventListener("click", retrieveLocationAndCallApi);
   apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${currentCity}&units=${units}&appid=${apiKey}`;
   axios
     .get(apiUrl)
     .then(getWeather)
-    .catch((error) =>
-      alert("That city doesn't exist in our database, try another")
-    );
-  // .finally(() => retrieveLocationAndCallApi());
+    .catch((error) => alert(`${error.message}: Missing or no such city.`));
 }
+
+// function displayErr(error) {
+//   if (error.status == "400") {
+//     console.log("no data");
+//   }
+//   if (error.status == "404") {
+//     console.log("no such city");
+//   }
+// }
+// .finally(() => retrieveLocationAndCallApi())
