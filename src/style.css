@@ -46,6 +46,10 @@ h1 {
   margin: 2px;
   border-radius: 10px;
 }
+
+.weather-icon {
+  width: 100px;
+}
 .search-div {
   text-align: right;
 }
