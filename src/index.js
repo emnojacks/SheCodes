@@ -39,6 +39,8 @@ let citySearchSubmitBtn = document.querySelector("#city-search-submit-btn");
 let switchMetricToggle = document.querySelector("#switch-metric-toggle");
 switchMetricToggle.addEventListener("change", toggleMetric);
 citySearchSubmitBtn.addEventListener("click", changeCityToSearchedCity);
+let syncLocationBtn = document.querySelector("#sync-location-btn");
+syncLocationBtn.addEventListener("click", retrieveLocationAndCallApi);
 let apiKey = "71af9c2805889d9aa3f3ac839c94ca11";
 let units = "imperial";
 let lat;
@@ -47,31 +49,31 @@ let displayUnits = "F";
 let windspeedUnits = "mph";
 
 //Toggle metric
-function toggleMetric() {
-  if (switchMetricToggle.value === "farenheit") {
+function toggleMetric(response) {
+  //change from F to C
+  if (switchMetricToggle.value === "imperial") {
     units = "metric";
     displayUnits = "C";
     windspeedUnits = "mps";
-    switchMetricToggle.value = "celsius";
+    switchMetricToggle.value = "metric";
     console.log("changed to metric");
     console.log(units, switchMetricToggle.value);
-    convertCurrentUnits();
+    convertToCelsius();
     return units;
   } else {
-    switchMetricToggle.value = "farenheit";
+    //cahnge from C to F
+    switchMetricToggle.value = "metric";
     units = "imperial";
     displayUnits = "F";
     windspeedUnits = "mph";
     console.log("changed to imperial");
     console.log(units, switchMetricToggle.value);
-    convertCurrentUnits();
+    // convertToFarenheit();
     return units;
   }
 }
 
-function convertUnits() {
-  console.log(currentTempToReplace);
-}
+function convertToCelsius() {}
 
 //USING FREE OPEN WEATHER API FOR CURRENT WEATHER
 let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${units}`;
@@ -89,6 +91,8 @@ function retrieveLocationAndCallApi() {
     navigator.geolocation.getCurrentPosition((position) => {
       lat = position.coords.latitude;
       lon = position.coords.longitude;
+      units = switchMetricToggle.value;
+      console.log(switchMetricToggle.value);
       console.log(lat, lon);
       apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${units}`;
       axios.get(apiUrl).then(getWeather);
@@ -125,10 +129,12 @@ function getWeather(response) {
       currentIcon
     );
     displayCurrentCity(currentCity);
+    return response;
   } else {
     alert("Something went wrong, sorry.");
   }
 }
+
 //DISPLAY TODAY'S WEATHER FOR GEOLOCATED LOCATION
 function displayCurrentWeather(
   currentTemp,
@@ -137,12 +143,11 @@ function displayCurrentWeather(
   currentWindSpeed,
   currentIcon
 ) {
-  console.log(currentIcon);
   if (currentTemp) {
     currentTempToReplace.innerHTML = `${currentTemp}°<sup class="smaller">${displayUnits}</sup>`;
     currentHumidityToReplace.innerHTML = `${currentHumidity}% humidity`;
     currentDescriptionToReplace.innerHTML = `${currentDescription}`;
-    currentWindSpeedToReplace.innerHTML = `wind ${currentWindSpeed} mph`;
+    currentWindSpeedToReplace.innerHTML = `wind ${currentWindSpeed} ${windspeedUnits}`;
     currentIconToReplace.innerHTML = `<img src=https://openweathermap.org/img/wn/${currentIcon}@2x.png>`;
     //if you want to store icons on your computer use method below//
     // `<img src="src/icons/${currentIcon}.png">;
@@ -151,16 +156,18 @@ function displayCurrentWeather(
   }
 }
 //FUNCTIONS BASED ON SEARCHED CITY
-//CHANGE CITY HEADER TO SEARCHED CITY INSTEAD OF GEOLOCATED ONE
+//CALL API
 function changeCityToSearchedCity() {
-  let currentCity = citySearchBar.value;
-  let syncLocationBtn = document.querySelector("#sync-location-btn");
-  syncLocationBtn.addEventListener("click", retrieveLocationAndCallApi);
-  apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${currentCity}&units=${units}&appid=${apiKey}`;
-  axios
-    .get(apiUrl)
-    .then(getWeather)
-    .catch((error) => alert(`${error.message}: Missing or no such city.`));
+  if (citySearchBar.value) {
+    let currentCity = citySearchBar.value;
+    apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${currentCity}&units=${units}&appid=${apiKey}`;
+    axios
+      .get(apiUrl)
+      .then(getWeather)
+      .catch((error) => alert(`${error.message}: No such city.`));
+  } else {
+    alert("You didn't enter a city");
+  }
 }
 
 // function displayErr(error) {
