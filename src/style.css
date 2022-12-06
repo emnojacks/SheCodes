@@ -24,13 +24,9 @@ h1 {
   margin-bottom: 20px;
 }
 
-.next-day-card {
-  padding: 5px;
-}
-
-.high {
+/* .high {
   text-align: right;
-}
+} */
 
 .smaller {
   font-size: 12px;
@@ -40,12 +36,18 @@ h1 {
   max-width: 9vh;
 }
 
+.low .high {
+  padding: 0px;
+}
+
 .card {
   padding: 8px;
   border: 1px solid gray !important;
   margin: 2px;
   border-radius: 10px;
   background-color: transparent;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .weather-icon {
