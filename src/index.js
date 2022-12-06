@@ -175,10 +175,17 @@ function callForecast(coords, units) {
 
 //FUNC DISPLAY NEW FORECAST DATA CALLED BY FORECAST API
 function displayForecast(res) {
-  console.log(res.data);
   let fiveDayForecast = res.data;
   console.log(fiveDayForecast);
   console.log(fiveDayForecast.list[0]);
+  let day2CardIcon = document.querySelector(".day-2-card");
+  day2CardIcon.innerHTML = `<img src=https://openweathermap.org/img/wn/${fiveDayForecast.list[0].weather[0].icon}@2x.png>`;
+  let day2CardLow = document.querySelector("#day-2-low");
+  let day2CardHigh = document.querySelector("#day-2-high");
+  day2CardLow.innerHTML =
+    Math.round(fiveDayForecast.list[0].main.temp_min) + "°";
+  day2CardHigh.innerHTML =
+    Math.round(fiveDayForecast.list[0].main.temp_max) + "°";
 }
 
 //FUNC CHANGE LOCATION TO SEARCH VALUE AND CALL API FOR SEARCHED CITY
