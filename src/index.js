@@ -1,4 +1,4 @@
-//DATE FUNCTIONS
+//DATE FUNCS
 let now = new Date();
 //TURN DAY AND MONTH ARRAY NUMBERS INTO COMMON NAMES
 function formatDate() {
@@ -32,7 +32,7 @@ let todaysDate = document.querySelector("#todays-date");
 todaysDate.innerHTML =
   formatDate(new Date()) + " " + now.getHours() + ":" + minutes;
 
-//DECLARE VARIABLE NAMES TO DOM ELEMENTS & API PARAMS
+//VARIABLE INITS & DECLARATIONS
 let citySearchBar = document.querySelector("#city-search-bar");
 let cityHeader = document.querySelector("#city-header");
 let citySearchSubmitBtn = document.querySelector("#city-search-submit-btn");
@@ -47,8 +47,17 @@ let lat;
 let lon;
 let displayUnits = "F";
 let windspeedUnits = "mph";
+//USING FREE OPEN WEATHER API FOR CURRENT WEATHER
+let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${units}`;
+let currentTempToReplace = document.querySelector("#current-temp");
+let currentHumidityToReplace = document.querySelector("#current-humidity");
+let currentDescriptionToReplace = document.querySelector(
+  "#current-description"
+);
+let currentIconToReplace = document.querySelector("#icon-div");
+let currentWindSpeedToReplace = document.querySelector("#current-wind-speed");
 
-//Toggle metric
+//TOGGLE METRIC FUNC
 function toggleMetric(response) {
   //change from F to C
   if (switchMetricToggle.value === "imperial") {
@@ -73,19 +82,7 @@ function toggleMetric(response) {
   }
 }
 
-function convertToCelsius() {}
-
-//USING FREE OPEN WEATHER API FOR CURRENT WEATHER
-let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${units}`;
-let currentTempToReplace = document.querySelector("#current-temp");
-let currentHumidityToReplace = document.querySelector("#current-humidity");
-let currentDescriptionToReplace = document.querySelector(
-  "#current-description"
-);
-let currentIconToReplace = document.querySelector("#icon-div");
-let currentWindSpeedToReplace = document.querySelector("#current-wind-speed");
-
-//RETRIEVE LOCATION, SET COORDS, CALL WEATHER API WITH COORDS
+//FUNC TO RETRIEVE CURRENT LOCATION, SET COORDS TO LOCATION, CALL WEATHER API WITH COORDS
 function retrieveLocationAndCallApi() {
   if ("geolocation" in navigator) {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -98,29 +95,25 @@ function retrieveLocationAndCallApi() {
       axios.get(apiUrl).then(getWeather);
     });
   } else {
-    console.log("geolocation NOT available");
+    alert("geolocation not available - check browswer permissions");
   }
 }
+//CALL GEOLOCATION AND WEATHER ON PAGE LOAD
 retrieveLocationAndCallApi();
 
-//DISPLAY GEOLOCATED CITY
-function displayCurrentCity(currentCity) {
-  if (currentCity) {
-    cityHeader.innerHTML = `${currentCity}`;
-  }
-}
-
-//GET WEATHER VARS FROM RESPONSE DATA & CALL DISPLAY FUNCS
+//FUNC IF RES, SET RES DATA TO WEATHER VARS & CALL OTHER FUNCTIONS
 function getWeather(response) {
   if (response) {
     console.log(response);
+    console.log(units)
     let currentTemp = Math.round(response.data.main.temp);
     let currentCity = response.data.name;
     let currentHumidity = response.data.main.humidity;
     let currentDescription = response.data.weather[0].description;
     let currentWindSpeed = response.data.wind.speed;
-    const currentIcon = response.data.weather[0].icon;
+    let currentIcon = response.data.weather[0].icon;
     cityHeader.innerHTML = currentCity;
+    //CALL NEWLY SET VARS TO BE DISPLAYED
     displayCurrentWeather(
       currentTemp,
       currentHumidity,
@@ -128,10 +121,19 @@ function getWeather(response) {
       currentWindSpeed,
       currentIcon
     );
-    displayCurrentCity(currentCity);
+    callForecast(response.data.coord, units);
+    //REDUNDANT
+    // displayCurrentCity(currentCity);
     return response;
   } else {
     alert("Something went wrong, sorry.");
+  }
+}
+
+//DISPLAY GEOLOCATED CITY
+function displayCurrentCity(currentCity) {
+  if (currentCity) {
+    cityHeader.innerHTML = `${currentCity}`;
   }
 }
 
@@ -152,11 +154,31 @@ function displayCurrentWeather(
     //if you want to store icons on your computer use method below//
     // `<img src="src/icons/${currentIcon}.png">;
   } else {
-    console.log("missing data");
+    console.log("Cannot find weather data");
   }
 }
-//FUNCTIONS BASED ON SEARCHED CITY
-//CALL API
+
+//FUNC TO CALL FORECAST API WITH LAT & LON OF CITY ON DISPLAY
+function callForecast(coords, units) {
+  console.log(coords, units);
+  lat = coords.lat;
+  lon = coords.lon;
+  let forecastApiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${units}`;
+  console.log(forecastApiUrl);
+  //intake lat and lon - from response data
+  //intake apikey - global
+  axios
+    .get(forecastApiUrl)
+    .then(displayForecast)
+    .catch((error) => alert(`${error.message}: Forecast unavailable.`));
+}
+
+//FUNC DISPLAY NEW FORECAST DATA CALLED BY FORECAST API
+function displayForecast(res) {
+  console.log(res.data);
+}
+
+//FUNC CHANGE LOCATION TO SEARCH VALUE AND CALL API FOR SEARCHED CITY
 function changeCityToSearchedCity() {
   if (citySearchBar.value) {
     let currentCity = citySearchBar.value;
