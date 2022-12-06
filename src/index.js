@@ -127,6 +127,29 @@ let currentDescriptionToReplace = document.querySelector(
 );
 let currentIconToReplace = document.querySelector("#icon-div");
 let currentWindSpeedToReplace = document.querySelector("#current-wind-speed");
+//CARDS ELEMENT SELECTORS
+//tomorrow
+let day2CardIcon = document.querySelector(".day-2-card");
+let day2CardLow = document.querySelector("#day-2-low");
+let day2CardHigh = document.querySelector("#day-2-high");
+//next day
+let day3CardIcon = document.querySelector(".day-3-card");
+let day3CardLow = document.querySelector("#day-3-low");
+let day3CardHigh = document.querySelector("#day-3-high");
+//day after next
+let day4CardIcon = document.querySelector(".day-4-card");
+let day4CardLow = document.querySelector("#day-4-low");
+let day4CardHigh = document.querySelector("#day-4-high");
+
+let day5CardIcon = document.querySelector(".day-5-card");
+let day5CardLow = document.querySelector("#day-5-low");
+let day5CardHigh = document.querySelector("#day-5-high");
+let day6CardIcon = document.querySelector(".day-6-card");
+let day6CardLow = document.querySelector("#day-6-low");
+let day6CardHigh = document.querySelector("#day-6-high");
+let day7CardIcon = document.querySelector(".day-7-card");
+let day7CardLow = document.querySelector("#day-7-low");
+let day7CardHigh = document.querySelector("#day-7-high");
 
 //TOGGLE METRIC FUNC
 function toggleMetric(response) {
@@ -248,15 +271,42 @@ function callForecast(coords, units) {
 function displayForecast(res) {
   let fiveDayForecast = res.data;
   console.log(fiveDayForecast);
-  console.log(fiveDayForecast.list[0]);
-  let day2CardIcon = document.querySelector(".day-2-card");
-  let day2CardLow = document.querySelector("#day-2-low");
-  let day2CardHigh = document.querySelector("#day-2-high");
+  console.log(fiveDayForecast.list);
   day2CardIcon.innerHTML = `<img src=https://openweathermap.org/img/wn/${fiveDayForecast.list[0].weather[0].icon}@2x.png>`;
   day2CardLow.innerHTML =
-    Math.round(fiveDayForecast.list[0].main.temp_min) + "°";
+    Math.floor(fiveDayForecast.list[0].main.temp_min) + "°";
   day2CardHigh.innerHTML =
-    Math.round(fiveDayForecast.list[0].main.temp_max) + "°";
+    Math.ceil(fiveDayForecast.list[0].main.temp_max) + "°";
+  //end day 2 - start day 3
+  day3CardIcon.innerHTML = `<img src=https://openweathermap.org/img/wn/${fiveDayForecast.list[8].weather[0].icon}@2x.png>`;
+  day3CardLow.innerHTML =
+    Math.floor(fiveDayForecast.list[39].main.temp_min) + "°";
+  day3CardHigh.innerHTML =
+    Math.ceil(fiveDayForecast.list[8].main.temp_max) + "°";
+  //end day 3 - start day 4
+  day4CardIcon.innerHTML = `<img src=https://openweathermap.org/img/wn/${fiveDayForecast.list[12].weather[0].icon}@2x.png>`;
+  day4CardLow.innerHTML =
+    Math.floor(fiveDayForecast.list[12].main.temp_min) + "°";
+  day4CardHigh.innerHTML =
+    Math.ceil(fiveDayForecast.list[12].main.temp_max) + "°";
+  //end day 4 - start day 5
+  day5CardIcon.innerHTML = `<img src=https://openweathermap.org/img/wn/${fiveDayForecast.list[15].weather[0].icon}@2x.png>`;
+  day5CardLow.innerHTML =
+    Math.floor(fiveDayForecast.list[15].main.temp_min) + "°";
+  day5CardHigh.innerHTML =
+    Math.ceil(fiveDayForecast.list[15].main.temp_max) + "°";
+  //end day 5 - start day 6
+  day6CardIcon.innerHTML = `<img src=https://openweathermap.org/img/wn/${fiveDayForecast.list[23].weather[0].icon}@2x.png>`;
+  day6CardLow.innerHTML =
+    Math.floor(fiveDayForecast.list[23].main.temp_min) + "°";
+  day6CardHigh.innerHTML =
+    Math.ceil(fiveDayForecast.list[23].main.temp_max) + "°";
+  //end day 6 - start day 7
+  day7CardIcon.innerHTML = `<img src=https://openweathermap.org/img/wn/${fiveDayForecast.list[31].weather[0].icon}@2x.png>`;
+  day7CardLow.innerHTML =
+    Math.floor(fiveDayForecast.list[31].main.temp_min) + "°";
+  day7CardHigh.innerHTML =
+    Math.ceil(fiveDayForecast.list[31].main.temp_max) + "°";
 }
 
 //FUNC CHANGE LOCATION TO SEARCH VALUE AND CALL API FOR SEARCHED CITY
@@ -272,13 +322,3 @@ function changeCityToSearchedCity() {
     alert("You didn't enter a city");
   }
 }
-
-// function displayErr(error) {
-//   if (error.status == "400") {
-//     console.log("no data");
-//   }
-//   if (error.status == "404") {
-//     console.log("no such city");
-//   }
-// }
-// .finally(() => retrieveLocationAndCallApi())
