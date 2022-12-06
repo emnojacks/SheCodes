@@ -1,8 +1,8 @@
 //DATE FUNCS
+let days = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
 let now = new Date();
 //TURN DAY AND MONTH ARRAY NUMBERS INTO COMMON NAMES
 function formatDate() {
-  let days = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
   let currentDay = days[now.getDay()];
   let months = [
     "jan",
@@ -27,11 +27,82 @@ let minutes = now.getMinutes();
 if (minutes < 10) {
   minutes = `0${minutes}`;
 }
-//DISPLAY CURRENT DATE
-let todaysDate = document.querySelector("#todays-date");
-todaysDate.innerHTML =
-  formatDate(new Date()) + " " + now.getHours() + ":" + minutes;
+//DISPLAY DAYS
+function displayTodaysDate() {
+  let todaysDate = document.querySelector("#todays-date");
+  todaysDate.innerHTML =
+    formatDate(new Date()) + " " + now.getHours() + ":" + minutes;
+}
 
+displayTodaysDate();
+
+function displayDays() {
+  let tomorrowsDate = document.querySelector("#tomorrowsDate");
+  let day3Date = document.querySelector("#day-3-date");
+  let day4Date = document.querySelector("#day-4-date");
+  let day5Date = document.querySelector("#day-5-date");
+  let day6Date = document.querySelector("#day-6-date");
+  let day7Date = document.querySelector("#day-7-date");
+
+  switch (new Date().getDay()) {
+    case 0:
+      tomorrowsDate.innerHTML = "mon";
+      day3Date.innerHTML = "tue";
+      day4Date.innerHTML = "wed";
+      day5Date.innerHTML = "thu";
+      day6Date.innerHTML = "fri";
+      day7Date.innerHTML = "sat";
+      break;
+    case 1:
+      tomorrowsDate.innerHTML = "tue";
+      day3Date.innerHTML = "wed";
+      day4Date.innerHTML = "thu";
+      day5Date.innerHTML = "fri";
+      day6Date.innerHTML = "sat";
+      day7Date.innerHTML = "sun";
+      break;
+    case 2:
+      tomorrowsDate.innerHTML = "wed";
+      day3Date.innerHTML = "thu";
+      day4Date.innerHTML = "fri";
+      day5Date.innerHTML = "sat";
+      day6Date.innerHTML = "sun";
+      day7Date.innerHTML = "mon";
+      break;
+    case 3:
+      tomorrowsDate.innerHTML = "thu";
+      day3Date.innerHTML = "fri";
+      day4Date.innerHTML = "sat";
+      day5Date.innerHTML = "sun";
+      day6Date.innerHTML = "mon";
+      day7Date.innerHTML = "tue";
+      break;
+    case 4:
+      tomorrowsDate.innerHTML = "fri";
+      day3Date.innerHTML = "sat";
+      day4Date.innerHTML = "sun";
+      day5Date.innerHTML = "mon";
+      day6Date.innerHTML = "tue";
+      day7Date.innerHTML = "wed";
+      break;
+    case 5:
+      tomorrowsDate.innerHTML = "sat";
+      day3Date.innerHTML = "sun";
+      day4Date.innerHTML = "mon";
+      day5Date.innerHTML = "tue";
+      day6Date.innerHTML = "wed";
+      day7Date.innerHTML = "thu";
+      break;
+    case 6:
+      tomorrowsDate.innerHTML = "sun";
+      day3Date.innerHTML = "mon";
+      day4Date.innerHTML = "tue";
+      day5Date.innerHTML = "wed";
+      day6Date.innerHTML = "thu";
+      day7Date.innerHTML = "fri";
+  }
+}
+displayDays();
 //VARIABLE INITS & DECLARATIONS
 let citySearchBar = document.querySelector("#city-search-bar");
 let cityHeader = document.querySelector("#city-header");
@@ -179,9 +250,9 @@ function displayForecast(res) {
   console.log(fiveDayForecast);
   console.log(fiveDayForecast.list[0]);
   let day2CardIcon = document.querySelector(".day-2-card");
-  day2CardIcon.innerHTML = `<img src=https://openweathermap.org/img/wn/${fiveDayForecast.list[0].weather[0].icon}@2x.png>`;
   let day2CardLow = document.querySelector("#day-2-low");
   let day2CardHigh = document.querySelector("#day-2-high");
+  day2CardIcon.innerHTML = `<img src=https://openweathermap.org/img/wn/${fiveDayForecast.list[0].weather[0].icon}@2x.png>`;
   day2CardLow.innerHTML =
     Math.round(fiveDayForecast.list[0].main.temp_min) + "°";
   day2CardHigh.innerHTML =
