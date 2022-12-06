@@ -6,9 +6,9 @@ p {
   margin-bottom: 0px;
 }
 
-h1 {
-  font-size: calc(2.3rem + 0.3vw);
-}
+/* h1 {
+  font-size: calc(2.1rem + 0.3vw);
+} */
 
 .app-box {
   text-align: left;
@@ -22,6 +22,7 @@ h1 {
   display: flexbox;
   font-family: "Jost", sans-serif;
   margin-bottom: 20px;
+  justify-content: space-between;
 }
 
 /* .high {
@@ -51,7 +52,9 @@ h1 {
 }
 
 .weather-icon {
-  width: 100px;
+  width: auto;
+  height: 100px;
+  display: block;
 }
 .search-div {
   text-align: right;
@@ -62,9 +65,9 @@ h1 {
 #city-search-bar {
   border-radius: 10px;
   border: solid 1px gray;
-  padding: 6px;
-  max-width: 30vh;
-  margin-bottom: 10px;
+  padding: 5px;
+  max-width: 100%;
+  margin-bottom: 2px;
 }
 
 #city-search-submit-btn,
