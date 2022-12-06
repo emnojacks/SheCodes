@@ -105,7 +105,7 @@ retrieveLocationAndCallApi();
 function getWeather(response) {
   if (response) {
     console.log(response);
-    console.log(units)
+    console.log(units);
     let currentTemp = Math.round(response.data.main.temp);
     let currentCity = response.data.name;
     let currentHumidity = response.data.main.humidity;
@@ -176,6 +176,9 @@ function callForecast(coords, units) {
 //FUNC DISPLAY NEW FORECAST DATA CALLED BY FORECAST API
 function displayForecast(res) {
   console.log(res.data);
+  let fiveDayForecast = res.data;
+  console.log(fiveDayForecast);
+  console.log(fiveDayForecast.list[0]);
 }
 
 //FUNC CHANGE LOCATION TO SEARCH VALUE AND CALL API FOR SEARCHED CITY
