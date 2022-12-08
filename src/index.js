@@ -110,6 +110,11 @@ let citySearchSubmitBtn = document.querySelector("#city-search-submit-btn");
 let switchMetricToggle = document.querySelector("#switch-metric-toggle");
 switchMetricToggle.addEventListener("change", toggleMetric);
 citySearchSubmitBtn.addEventListener("click", changeCityToSearchedCity);
+citySearchBar.addEventListener("keypress", function (e) {
+  if (e.key === "Enter") {
+    changeCityToSearchedCity();
+  }
+});
 let syncLocationBtn = document.querySelector("#sync-location-btn");
 syncLocationBtn.addEventListener("click", retrieveLocationAndCallApi);
 let apiKey = "71af9c2805889d9aa3f3ac839c94ca11";
